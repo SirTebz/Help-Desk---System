@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResolveDesk")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+743ecda7ea9d02512d349adb369beeb58c5d4666")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+759e6b477c9ba1b233f32ad98c89aff8fd9163ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResolveDesk")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResolveDesk")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

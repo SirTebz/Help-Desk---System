@@ -1,1 +1,30 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>@ViewData["Title"] · ResolveDesk</title><link rel="stylesheet" href="~/css/site.css"/></head><body><aside><a class="brand" asp-action="Index"><b>◎</b> ResolveDesk</a><p>MAIN</p><a asp-action="Index">▦ Dashboard</a><a asp-action="Tickets">▤ Tickets</a><p>INSIGHTS</p><a asp-action="Tickets" asp-route-status="Escalated">⚠ Escalated</a><a asp-action="Tickets" asp-route-status="WaitingForCustomer">◷ Waiting for customer</a><p>OTHER</p><a asp-action="Create">＋ New ticket</a><form asp-area="Identity" asp-page="/Account/Logout" method="post"><button>⇥ Sign out</button></form></aside><main><header><div><strong>@ViewData["Title"]</strong><small>ResolveDesk support operations</small></div><a class="button" asp-action="Create">＋ New Ticket</a></header>@if(TempData["Success"] is string ok){<div class="notice success">@ok</div>}@if(TempData["Error"] is string err){<div class="notice error">@err</div>}@RenderBody()</main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>@ViewData["Title"] · ResolveDesk</title>
+  <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+  <aside>
+    <a class="brand" asp-controller="Home" asp-action="Index"><b>◎</b> ResolveDesk</a>
+    <p>MAIN</p>
+    <a asp-controller="Home" asp-action="Index">Dashboard</a>
+    <a asp-controller="Home" asp-action="Tickets">Tickets</a>
+    <p>INSIGHTS</p>
+    <a asp-controller="Home" asp-action="Tickets" asp-route-status="Escalated">Escalated</a>
+    <a asp-controller="Home" asp-action="Tickets" asp-route-status="WaitingForCustomer">Waiting for customer</a>
+    <p>OTHER</p>
+    <a asp-controller="Home" asp-action="Create">New ticket</a>
+    <form asp-area="Identity" asp-page="/Account/Logout" method="post"><button type="submit">Sign out</button></form>
+  </aside>
+  <main>
+    <header><div><strong>@ViewData["Title"]</strong><small>ResolveDesk support operations</small></div><a class="button" asp-controller="Home" asp-action="Create">New Ticket</a></header>
+    @if (TempData["Success"] is string ok) { <div class="notice success">@ok</div> }
+    @if (TempData["Error"] is string err) { <div class="notice error">@err</div> }
+    @RenderBody()
+  </main>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
