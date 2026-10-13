@@ -145,3 +145,5 @@ D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\obj\Release\ne
 D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\obj\Release\net8.0\ResolveDesk.pdb
 D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\obj\Release\net8.0\ResolveDesk.genruntimeconfig.cache
 D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\obj\Release\net8.0\ref\ResolveDesk.dll
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\obj\project.assets.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\obj\ResolveDesk.Tests.csproj.nuget.dgspec.json
