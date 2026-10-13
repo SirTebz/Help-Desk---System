@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>@ViewData["Title"] · ResolveDesk</title>
   <link rel="stylesheet" href="~/css/site.css" />
+  <link rel="stylesheet" href="~/css/dashboard.css" />
 </head>
 <body>
   <aside>
@@ -12,6 +13,7 @@
     <p>MAIN</p>
     <a asp-controller="Home" asp-action="Index">Dashboard</a>
     <a asp-controller="Home" asp-action="Tickets">Tickets</a>
+    <a asp-controller="Home" asp-action="Board">Board View</a>
     <p>INSIGHTS</p>
     <a asp-controller="Home" asp-action="Tickets" asp-route-status="Escalated">Escalated</a>
     <a asp-controller="Home" asp-action="Tickets" asp-route-status="WaitingForCustomer">Waiting for customer</a>
