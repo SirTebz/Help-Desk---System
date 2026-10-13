@@ -147,3 +147,14 @@ D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\obj\Release\ne
 D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\obj\Release\net8.0\ref\ResolveDesk.dll
 D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\obj\project.assets.json
 D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\obj\ResolveDesk.Tests.csproj.nuget.dgspec.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\appsettings.Development.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\appsettings.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\ResolveDesk.deps.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\ResolveDesk.runtimeconfig.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\ResolveDesk.staticwebassets.endpoints.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\ResolveDesk.staticwebassets.runtime.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\ResolveDesk.Tests.deps.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\ResolveDesk.Tests.runtimeconfig.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\Tests\ResolveDesk.Tests\obj\project.assets.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\bin\Release\net8.0\Tests\ResolveDesk.Tests\obj\ResolveDesk.Tests.csproj.nuget.dgspec.json
+D:\Dev_Show\Web App\Enterprise Help Desk - 2nd\Help Desk - System\bin\Release\net8.0\Tests\ResolveDesk.Tests\obj\Release\net8.0\ResolveDesk.Tests.sourcelink.json

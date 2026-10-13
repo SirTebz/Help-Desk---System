@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResolveDesk.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+743ecda7ea9d02512d349adb369beeb58c5d4666")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b17318f21f93f5ed807f73b941b45195bf6e152d")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResolveDesk.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResolveDesk.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
