@@ -1,8 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@model ResolveDesk.ViewModels.DashboardVm
+@{ViewData["Title"]="Dashboard";}
+<section class="stats"><article><span>Open tickets</span><b>@Model.Open</b><i>Active work across your queues</i></article><article><span>Assigned to me</span><b>@Model.Mine</b><i>Tickets requiring your attention</i></article><article><span>SLA at risk</span><b>@Model.AtRisk</b><i>Due in the next two hours</i></article><article><span>Resolved today</span><b>@Model.ResolvedToday</b><i>Completed since midnight UTC</i></article></section>
+<section class="panel"><div class="panel-title"><div><h2>Recent tickets</h2><small>Live database-backed work queue</small></div><a asp-action="Tickets">View all →</a></div><table><thead><tr><th>Ticket</th><th>Priority</th><th>Status</th><th>Department</th><th>SLA due</th></tr></thead><tbody>@foreach(var t in Model.Recent){<tr><td><a asp-action="Details" asp-route-id="@t.Id"><b>@t.Number</b><br/><span>@t.Subject</span></a></td><td><em class="priority @t.Priority.ToString().ToLower()">@t.Priority</em></td><td><em class="status">@t.Status</em></td><td>@t.Department.Name</td><td>@t.ResolutionDueUtc.ToLocalTime().ToString("dd MMM HH:mm")</td></tr>}</tbody></table></section>

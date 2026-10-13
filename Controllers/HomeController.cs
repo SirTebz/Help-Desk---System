@@ -1,31 +1,21 @@
-using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ResolveDesk.Data;
 using ResolveDesk.Models;
-
+using ResolveDesk.Services;
+using ResolveDesk.ViewModels;
 namespace ResolveDesk.Controllers;
-
-public class HomeController : Controller
-{
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
-
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
+[Authorize]
+public class HomeController(ApplicationDbContext db, UserManager<ApplicationUser> users, ITicketWorkflowService flow) : Controller {
+ async Task<ApplicationUser> Me()=>await users.GetUserAsync(User)??throw new InvalidOperationException();
+ public async Task<IActionResult> Index(){var me=await Me();var q=db.Tickets.Include(x=>x.Department).Include(x=>x.Requester).AsQueryable(); if(User.IsInRole("EndUser"))q=q.Where(x=>x.RequesterId==me.Id);var now=DateTime.UtcNow;return View(new DashboardVm{Open=await q.CountAsync(x=>x.Status!=TicketStatus.Closed&&x.Status!=TicketStatus.Resolved),Mine=await q.CountAsync(x=>x.AssignedToId==me.Id),AtRisk=await q.CountAsync(x=>x.ResolutionDueUtc<now.AddHours(2)&&x.Status!=TicketStatus.Closed&&x.Status!=TicketStatus.Resolved),ResolvedToday=await q.CountAsync(x=>x.ResolvedUtc>=now.Date),Recent=await q.OrderByDescending(x=>x.UpdatedUtc).Take(6).ToListAsync()});}
+ public async Task<IActionResult> Tickets(string? search, TicketStatus? status){var me=await Me();var q=db.Tickets.Include(x=>x.Department).Include(x=>x.Requester).OrderByDescending(x=>x.UpdatedUtc).AsQueryable();if(User.IsInRole("EndUser"))q=q.Where(x=>x.RequesterId==me.Id);if(!string.IsNullOrWhiteSpace(search))q=q.Where(x=>x.Subject.Contains(search)||x.Number.Contains(search));if(status.HasValue)q=q.Where(x=>x.Status==status);return View(await q.Take(100).ToListAsync());}
+ public async Task<IActionResult> Details(int id){var t=await db.Tickets.Include(x=>x.Department).Include(x=>x.Requester).Include(x=>x.Comments).Include(x=>x.Activities).FirstOrDefaultAsync(x=>x.Id==id);if(t is null)return NotFound();var me=await Me();if(User.IsInRole("EndUser")&&t.RequesterId!=me.Id)return Forbid();return View(t);}
+ public async Task<IActionResult> Create(){ViewBag.Departments=await db.Departments.Where(x=>x.IsActive).ToListAsync();return View(new TicketCreateVm());}
+ [HttpPost,ValidateAntiForgeryToken] public async Task<IActionResult> Create(TicketCreateVm vm){if(!ModelState.IsValid){ViewBag.Departments=await db.Departments.ToListAsync();return View(vm);}var me=await Me();var now=DateTime.UtcNow;var next=(await db.Tickets.CountAsync())+1;var t=new Ticket{Number=$"RD-{next:000000}",Subject=vm.Subject,Description=vm.Description,DepartmentId=vm.DepartmentId,Priority=vm.Priority,Category=vm.Category,RequesterId=me.Id,CreatedUtc=now,UpdatedUtc=now,ResolutionDueUtc=flow.ResolutionDeadline(vm.Priority,now)};t.Activities.Add(new TicketActivity{Action="Ticket created",Detail="Request submitted",ActorId=me.Id});db.Tickets.Add(t);await db.SaveChangesAsync();TempData["Success"]=$"{t.Number} has been created.";return RedirectToAction(nameof(Details),new{id=t.Id});}
+ [HttpPost,ValidateAntiForgeryToken] public async Task<IActionResult> Comment(int id,string body,bool internalNote=false){var t=await db.Tickets.FindAsync(id);if(t is null)return NotFound();var me=await Me();var staff=User.IsInRole("Agent")||User.IsInRole("DepartmentAdmin")||User.IsInRole("SuperAdmin");if(t.RequesterId!=me.Id&&!staff)return Forbid();if(internalNote&&!staff)return Forbid();if(string.IsNullOrWhiteSpace(body))return RedirectToAction(nameof(Details),new{id});db.TicketComments.Add(new TicketComment{TicketId=id,AuthorId=me.Id,Body=body,IsInternal=internalNote});t.FirstResponseUtc??=DateTime.UtcNow;t.UpdatedUtc=DateTime.UtcNow;await db.SaveChangesAsync();return RedirectToAction(nameof(Details),new{id});}
+ [HttpPost,Authorize(Policy="Staff"),ValidateAntiForgeryToken] public async Task<IActionResult> Transition(int id,TicketStatus status){var t=await db.Tickets.FindAsync(id);if(t is null)return NotFound();if(!flow.CanTransition(t.Status,status,true)){TempData["Error"]="That status change is not permitted.";return RedirectToAction(nameof(Details),new{id});}var old=t.Status;t.Status=status;t.UpdatedUtc=DateTime.UtcNow;if(status==TicketStatus.Resolved)t.ResolvedUtc=DateTime.UtcNow;t.Activities.Add(new TicketActivity{Action="Status changed",Detail=$"{old} → {status}",ActorId=(await Me()).Id});await db.SaveChangesAsync();return RedirectToAction(nameof(Details),new{id});}
+ [AllowAnonymous]public IActionResult AccessDenied()=>View();
 }
